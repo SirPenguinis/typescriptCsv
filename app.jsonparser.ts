@@ -1,5 +1,9 @@
 ﻿export class JsonParser {
    
+    /**
+     * Generate the CSV from string data
+     * @param apiData Data sent via API or another JSON string
+     */
     getCsvFromData(apiData: string) {
 
         //Data we are working with
@@ -19,7 +23,11 @@
 
     }
 
-    //Recursive method to generate a header based on the first element in the collection
+   /**
+    * Parse header dynamically - take the first JSON object and use the keys - Recursive Method
+    * @param data JSON data representation of the object to parse header from
+    * @param isTopLevel Flag to indicate in the recursion that we are at the first call to the method
+    */
     private parseHeader(data: JSON, isTopLevel: boolean) {
         const headerData = [];
 
@@ -69,7 +77,11 @@
         return headerData;
     }
 
-    //Recursive method to parse the row data out
+    /**
+     * Parse data via recursion
+     * @param data JSON data representation of the object
+     * @param isRecursive Flag to indicate in the recursion that we are at the first call to the method
+     */
     private parseData(data: JSON, isRecursive: boolean) {
         const rowData = [];
 
@@ -106,7 +118,10 @@
         return rowData;
     }
 
-    //Parse code into a friendly CSV format
+    /**
+     * Format the results into a CSV defined style 
+     * @param data Data to format
+     */
     private formatToCsv(data: any[]) {
         let csvString = '';
 
@@ -122,7 +137,10 @@
         return csvString;
     }
 
-    //Do the export magic
+    /**
+     * Export the CSV to the browser window
+     * @param data Data to export as a CSV
+     */
     private exportCsv(data: string) {
         const csv = 'data:text/csv;charset=utf-8;,';
         const uri = encodeURI(csv + data);
